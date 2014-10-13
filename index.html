@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+<style type="text/css">
+	
+	body{
+		background-color: #555;
+	}
+	#stage{
+		width:600px;
+		height:400px;
+		margin:20px auto;
+		background-color: #fff;
+		position: relative;
+	}
+
+	.circle{
+		width:20px;
+		height:20px;
+		border-radius: 50%;
+		background-color: #f00;
+		position: absolute;
+		left:300px;
+		top:200px;
+	}
+
+</style>
+</head>
+<body>
+	<div id="stage">
+		
+	</div>
+	<button id="buttonNew">Create a new Circle</button>
+</body>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		var destinations = [{x:600,y:200,c:'#0f0'},{x:300,y:0,c:'#0ff'},{x:0,y:400,c:'#ff0'},{x:300,y:200,c:'#00f'}];
+
+
+		function Circle(myCircle){
+			var currentIndex = 0;
+			
+			function A(){
+				var xxx = destinations[currentIndex].x;
+				var yyy = destinations[currentIndex].y;
+				var ccc = destinations[currentIndex].c;
+				currentIndex++;
+				if (currentIndex>=destinations.length) currentIndex=0;
+				myCircle.css('background-color',ccc);
+				myCircle.animate({left:xxx, top:yyy},2000, A);
+				console.log('We are at '+ currentIndex);
+			}
+
+			A();
+		}
+
+
+		$('#buttonNew').on('click', function(e){
+			e.preventDefault();
+			var aNewCircle = $('<div>').addClass('circle');
+			$('#stage').append(aNewCircle);
+			new Circle(aNewCircle);
+
+		});
+
+	});
+</script>
+</html>
